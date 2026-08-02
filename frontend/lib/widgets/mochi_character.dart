@@ -26,8 +26,18 @@ class MochiCharacter extends StatelessWidget {
         return "assets/images/mochi/mochi_stressed.png";
       case "Unsicher":
         return "assets/images/mochi/mochi_unsicher.png";
+      case "Erschöpft":
+        return "assets/images/mochi/mochi_erschöpft.png";
+      case "Unruhig":
+        return "assets/images/mochi/mochi_unruhig.png";
+      case "Energetisch":
+        return "assets/images/mochi/mochi_energetisch.png";
+      case "Motiviert":
+        return "assets/images/mochi/mochi_motiviert.png";
+      case "Abgelenkt":
+        return "assets/images/mochi/mochi_abgelenkt.png";
       default:
-        return "assets/images/mochi/mochi_idle.png";
+        return "assets/images/mochi/mochi_happy.png";
     }
   }
 
