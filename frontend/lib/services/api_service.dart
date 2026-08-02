@@ -23,4 +23,9 @@ class ApiService {
     final response = await http.get(Uri.parse("$baseUrl/userdata"));
     return jsonDecode(response.body);
   }
+  Future<Map<String, dynamic>> getReaction(String mood) async {
+      final response = await http.get(Uri.parse("$baseUrl/reaction/$mood"));
+      return jsonDecode(response.body);
+  }
+
 }

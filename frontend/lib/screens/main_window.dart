@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
+import '../widgets/mochi_character.dart';
 
 class MainWindow extends StatefulWidget {
   const MainWindow({super.key});
@@ -10,6 +11,7 @@ class MainWindow extends StatefulWidget {
 
 class _MainWindowState extends State<MainWindow> {
   Map<String, dynamic> userData = {};
+  Map<String, dynamic> reaction = {};
 
   @override
   void initState() {
@@ -18,7 +20,12 @@ class _MainWindowState extends State<MainWindow> {
   }
 
   void loadData() async {
-    userData = await ApiService().getUserData();
+    final api = ApiService();
+
+    // Daten vom Backend laden
+    userData = await api.getUserData();
+    reaction = await api.getReaction(userData["mood"]);
+
     setState(() {});
   }
 
@@ -26,10 +33,35 @@ class _MainWindowState extends State<MainWindow> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Beauty Mochi – Main")),
-      body: Center(
-        child: Text(
-          "Stimmung: ${userData["mood"]}",
-          style: const TextStyle(fontSize: 22),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+
+            // 👉 Mochi-Figur abhängig von der Stimmung
+            MochiCharacter(
+              mood: userData["mood"] ?? "",
+              size: 200,
+            ),
+
+            const SizedBox(height: 20),
+
+            // Stimmung anzeigen
+            Text(
+              "Stimmung: ${userData["mood"] ?? ""}",
+              style: const TextStyle(fontSize: 22),
+            ),
+
+            const SizedBox(height: 20),
+
+            // Mochi-Reaktion anzeigen
+            Text(
+              reaction["text"] ?? "",
+              style: const TextStyle(fontSize: 18),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
